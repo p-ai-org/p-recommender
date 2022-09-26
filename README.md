@@ -1,2 +1,3 @@
 # p-recommender
-A course recommendation system for the Claremont Colleges.
+A course recommendation system for the Claremont Colleges. Led by Saatvik Kher.
+
