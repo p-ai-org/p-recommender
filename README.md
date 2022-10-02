@@ -7,5 +7,6 @@ A course recommendation system for the Claremont Colleges. Led by Saatvik Kher.
 - Samson Zhang PO '25 
 - Rachel Yang
 - Vani Sachdev
+- Yotam Twersky
 
 The dataset can be found [here](https://raw.githubusercontent.com/MuddCreates/hyperschedule-api-go/master/sample/20211109-2230utc/course_1.csv).
