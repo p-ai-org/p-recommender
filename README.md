@@ -15,4 +15,6 @@ A course recommendation system for the Claremont Colleges. Led by Saatvik Kher.
 - Maria Jose Najas PO '24
 - Sophia Ristuben
 
-The dataset can be found [here](https://raw.githubusercontent.com/MuddCreates/hyperschedule-api-go/master/sample/20211109-2230utc/course_1.csv).
+Course datasets this project builds on:
+- from [MuddCreates/hyperschedule-api-go](https://raw.githubusercontent.com/MuddCreates/hyperschedule-api-go/master/sample/20211109-2230utc/course_1.csv)
+- from [IonImpulse/fivec-scheduler-server](https://github.com/IonImpulse/fivec-scheduler-server)
