@@ -6,15 +6,23 @@ A course recommendation system for the Claremont Colleges. Led by Saatvik Kher.
 ### Collaborators
 
 =======
-- Tilo Reneau-Cardoso PO '25
-- Samson Zhang PO '25
+- Tilo Reneau-Cardoso
+- Samson Zhang
 - Rachel Yang
 - Vani Sachdev
 - Yotam Twersky
 - Alex Horban
-- Maria Jose Najas PO '24
+- Maria Jose Najas
 - Sophia Ristuben
+
+### Getting Up and Running
+
+1. Clone this repo
+2. Run `FLASK_APP=app.py flask run` from inside the cloned directory
+3. Navigate to [http://127.0.0.1:5000/](http://127.0.0.1:5000)
+
 
 Course datasets this project builds on:
 - from [MuddCreates/hyperschedule-api-go](https://raw.githubusercontent.com/MuddCreates/hyperschedule-api-go/master/sample/20211109-2230utc/course_1.csv)
 - from [IonImpulse/fivec-scheduler-server](https://github.com/IonImpulse/fivec-scheduler-server)
+
