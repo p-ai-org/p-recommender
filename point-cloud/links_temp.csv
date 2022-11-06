@@ -1,0 +1,15 @@
+id1,id2,strength
+hist101,hist102,0.9839
+hist101,hist103,0.8
+hist101,math101,0.2
+hist101,math102,0
+hist101,math103,0
+hist102,hist103,0.9
+hist102,math101,0.1
+hist102,math102,0
+hist102,math103,0
+hist103,math101,0
+hist103,math102,0
+hist103,math103,0
+math101,math102,0.9
+math101,math103,0.8
