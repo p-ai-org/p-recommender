@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> 5C Course Recommendation System</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+	
+</head>
+<body>
+	<div>
+
+	<h1><mark>5C Course Recommendation System</mark></h1>
+	
+		<p1><span>enter a course that you care about!</span></p1>
+
+			<form action="/rec" method="post">
+				<!-- name`  attribute specifies the name of a form.  -->
+				<!-- used to reference elements in JS OR
+				to reference form data after a form is submitted -->
+			<input type="text"	 name="coursename">
+			<!-- submit = button!; value = what shows up on the button-->
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+
+</body>
+</html>
