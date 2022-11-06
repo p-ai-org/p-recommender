@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# big pretrained vectors file
+*/enwiki_20180420_100d.pkl
