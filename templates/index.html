@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p-rec</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+</head>
+<body>
+
+    <div>
+        <h1> <mark>p-recommender</mark> </h1>
+        <p> Enter A Course You Like </p>
+
+        <form action="/rec", method=post>
+            <input type="text" name = "coursename">
+            <input type ="submit" value = "Submit">
+
+        </form>
+
+
+        
+    </div>
+    
+</body>
+</html>
