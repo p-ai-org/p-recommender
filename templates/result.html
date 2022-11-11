@@ -10,8 +10,7 @@
 <div class="page">
   <h1> {{ course }} rec's!</h1>
   {% for table in tables %}
-    <h2>{{titles[loop.index]}}</h2>
-    {{ table|safe }}
+    <h2>{{ table }}</h2>
   {% endfor %}
 </div>
 </body>

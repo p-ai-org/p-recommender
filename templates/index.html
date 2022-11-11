@@ -4,7 +4,33 @@
 	<meta charset="UTF-8">
 	<title> 5C Course Recommendation System</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
-	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
+	<script>
+		$(function() {
+			$("#searchBox").autocomplete({
+				source : function(request, response) {
+					$.ajax({
+						type: "POST",
+						url : "http://127.0.0.1:5000/search",
+						dataType : "json",
+						cache: false,
+						data : {
+							q : request.term
+						},
+						success : function(data) {
+							response(data);
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							console.log(textStatus + " " + errorThrown);
+						}
+					});
+				},
+				minLength : 1
+			});
+		});
+	</script>
 </head>
 <body>
 	<div>
@@ -17,7 +43,7 @@
 				<!-- name`  attribute specifies the name of a form.  -->
 				<!-- used to reference elements in JS OR
 				to reference form data after a form is submitted -->
-			<input type="text"	 name="coursename">
+			<input type="text" name="search" id="searchBox">
 			<!-- submit = button!; value = what shows up on the button-->
 			<input type="submit" value="Submit">
 		</form>
