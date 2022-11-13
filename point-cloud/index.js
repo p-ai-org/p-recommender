@@ -8,7 +8,7 @@ svg
     .attr("height", h)
     .attr("viewbox", [0, 0, w, h]);
 
-const bg = svg.append("rect").attr("width", w).attr("height", h).attr("fill", "#222");
+const bg = svg.append("rect").attr("width", w).attr("height", h).attr("fill", "white");
 
 d3.json("alex_courses.json").then(courses => {
     d3.csv("alex_connections.csv").then(links => {
