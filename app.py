@@ -11,18 +11,17 @@ import json
 with open('description_embeddings.pickle', 'rb') as handle:
     description_embeddings = pickle.load(handle)
 
+with open("./static/courses.json", "r") as courses_file:
+    courses = json.load(courses_file)
 
 def recommend(user_input):
     def similarity(user_input, reference):
         return 1 - spatial.distance.cosine(description_embeddings[user_input.upper()], description_embeddings[reference])  
 
     def closest_courses(user_input):
-        with open("./static/courses.json", "r") as courses_file:
-            courses = json.load(courses_file)
-
-            unsorted = [ (course, round(similarity(user_input, course), 2), [x for x in courses if x["identifier"] == course][0])
-                        for course in description_embeddings.keys()]
-            return sorted(unsorted, key = lambda w: w[1], reverse = True)
+        unsorted = [ (course, round(similarity(user_input, course), 2), [x for x in courses if x["identifier"] == course][0])
+                    for course in description_embeddings.keys()]
+        return sorted(unsorted, key = lambda w: w[1], reverse = True)
     
     if type(user_input) == str:
         if not (user_input in description_embeddings):
@@ -62,7 +61,7 @@ def search():
 	json_data = json.loads(open(json_url).read())
 	#print (json_data)
 	#print (json_data[0])
-	
+
 	filtered_dict = [v for v in json_data if term in v]	
 	# print(filtered_dict)
 	
