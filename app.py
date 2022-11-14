@@ -17,9 +17,12 @@ def recommend(user_input):
         return 1 - spatial.distance.cosine(description_embeddings[user_input.upper()], description_embeddings[reference])  
 
     def closest_courses(user_input):
-        unsorted = [ (course, similarity(user_input, course))
-                    for course in description_embeddings.keys()]
-        return sorted(unsorted, key = lambda w: w[1], reverse = True)
+        with open("./static/courses.json", "r") as courses_file:
+            courses = json.load(courses_file)
+
+            unsorted = [ (course, round(similarity(user_input, course), 2), [x for x in courses if x["identifier"] == course][0])
+                        for course in description_embeddings.keys()]
+            return sorted(unsorted, key = lambda w: w[1], reverse = True)
     
     if type(user_input) == str:
         if not (user_input in description_embeddings):
@@ -47,7 +50,7 @@ def index():
 def getvalue():
     coursename = request.form['search']
     df = recommend(coursename)
-    return render_template('result.html', tables = df)
+    return render_template('result.html', tables = df, course = coursename)
 
 @app.route('/search', methods=['POST'])
 def search():
@@ -69,4 +72,4 @@ def search():
 	return resp
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

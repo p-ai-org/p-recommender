@@ -1,25 +1,87 @@
 body {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    background-size: cover;
-	color:white;
+	font-family: "IBM Plex Sans", sans-serif;
+	margin: 0;
+}
+
+.left-col {
+	padding: 16px;
+}
+
+.right-col {
+	width: 100%;
+	height: 100vh;
+	background-image: url("/static/pointcloud.jpg");
+	background-position: center center;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	text-align: center;
-	padding-top:5px;
 }
 
+@media (min-width: 600px) {
+	.flex-container {
+		display: flex;
+		height: 100vh;
+	}
 
-h1 {
-	padding-top:150px;
-	text-align:center;
-	font-size: 50px;
+	.left-col {
+		width: 300px;
+		height: 100%;
+		border-right: 1px solid black;
+		flex-grow: 0;
+		flex-shrink: 0;
+		box-sizing: border-box;
+		overflow-y: auto;
+	}
 }
 
-
-span {
-	background-color: white;
+.right-col p {
+	color: white;
+	background-color: rgba(0,0,0,0.5);
+	padding: 16px;
+	display: inline-block;
 }
 
-form {
-	padding-top:50px;
-	width:100%;
+hr {
+	margin: 32px 0;
 }
 
+input {
+	padding: 4px 8px;
+	font-size: 20px;
+	width: 100%;
+	box-sizing: border-box;
+	display: block;
+	margin: 8px 0;
+	font-family: "IBM Plex Sans", sans-serif;
+}
+
+input[type="submit"] {
+	background-color: red;
+	border: 0;
+	color: white;
+	opacity: 0.75;
+	transition: all 0.2s ease;
+}
+
+input[type="submit"]:hover {
+	opacity: 1.0;
+	box-shadow: 0 4px 4px 2px rgba(0,0,0,0.5);
+}
+
+.course-rec {
+	padding: 8px;
+	margin: 16px 0;
+	background-color: #ddd;
+	border-radius: 8px;
+	border: 1px solid #666;
+}
+
+.course-rec h4 {
+	margin-top: 0
+}
+
+.course-rec p:last-of-type {
+	margin-bottom: 0;
+}
