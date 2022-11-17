@@ -47,7 +47,7 @@ def index():
 
 @app.route('/rec',methods=['POST'])
 def getvalue():
-    coursename = request.form['search']
+    coursename = request.form['search'].split(" ")[0]
     df = recommend(coursename)
     return render_template('result.html', tables = df, course = coursename)
 
@@ -57,7 +57,7 @@ def search():
 	print ('term: ', term)
 	
 	SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
-	json_url = os.path.join(SITE_ROOT, "data", "results.json")
+	json_url = os.path.join(SITE_ROOT, "data", "newresults.json")
 	json_data = json.loads(open(json_url).read())
 	#print (json_data)
 	#print (json_data[0])
