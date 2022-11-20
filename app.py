@@ -10,7 +10,7 @@ app = Flask(__name__)
 #function to get recs
 def get_recs(course_title):
     result = [course_title for i in range(1, 10)]
-    result = pd.DataFrame(result)
+    #result = pd.DataFrame(result)
     return result
 
 
@@ -24,8 +24,8 @@ def index():
 @app.route('/rec', methods = ['POST'])
 def rec_page():
     coursename = request.form['coursename']
-    #results = get_recs(coursename)
-    return render_template("results.html", coursename = coursename)
+    result = get_recs(coursename)
+    return render_template("results.html", coursename = coursename, result = result)
 
 
 
