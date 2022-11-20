@@ -7,6 +7,7 @@ import pickle
 from scipy import spatial
 import os 
 import json
+import string
 
 with open('description_embeddings.pickle', 'rb') as handle:
     description_embeddings = pickle.load(handle)
@@ -62,7 +63,7 @@ def search():
 	#print (json_data)
 	#print (json_data[0])
 
-	filtered_dict = [v for v in json_data if term in v]	
+	filtered_dict = [v for v in json_data if (term in v or string.capwords(term) in v)]	
 	# print(filtered_dict)
 	
 	resp = jsonify(filtered_dict)
