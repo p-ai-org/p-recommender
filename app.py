@@ -8,7 +8,7 @@ app = Flask(__name__)
 def get_recs(course_title):
     # global result
     result = [course_title for i in range(1, 10)]
-    result = pd.DataFrame(result)
+    # result = pd.DataFrame(result)
     return result
 
 #index file routing
@@ -21,9 +21,9 @@ def index():
 @app.route('/rec', methods=['POST'])
 def rec_page():
     coursename = request.form["coursename"]
-    #result = get_recs(coursename)
+    result = get_recs(coursename)
     #tables = [result.to_html(classes='data')],
-    return render_template("results.html", coursename = coursename)
+    return render_template("results.html", result=result, coursename = coursename)
 
 # def main():
 #     return "Hello Claremont! Welcome to p-recommender."

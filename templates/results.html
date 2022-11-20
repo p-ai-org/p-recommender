@@ -8,7 +8,14 @@
     <link rel = "stylesheet" href = "{{ url_for('static', filename='stylesheets/results.css') }}" />
 </head>
 <body>
-    <h1> {{ coursename }} </h1>
+<div class="page">
+    <h1> {{ course }} rec's!</h1>
+    {% for r in result %}
+    <p> {{ r }} </p>
+    {% endfor %}
+
+</div>
+    <!-- <h1> {{ coursename }} </h1> -->
 
 </body>
 </html>
