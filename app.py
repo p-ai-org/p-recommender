@@ -62,7 +62,7 @@ def search():
 	#print (json_data)
 	#print (json_data[0])
 
-	filtered_dict = [v for v in json_data if (term in v or string.capwords(term) in v)]	
+	filtered_dict = [v for v in json_data if term.lower() in v.lower()]
 	# print(filtered_dict)
 	
 	resp = jsonify(filtered_dict)
