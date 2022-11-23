@@ -10,21 +10,26 @@ svg
 
 const bg = svg.append("rect").attr("width", w).attr("height", h).attr("fill", "white");
 
-d3.json("alex_courses.json").then(courses => {
-    d3.csv("alex_connections.csv").then(links => {
+d3.csv("clean_data.csv").then(courses => {
+    d3.csv("glove_connections.csv").then(links => {
         const g = svg.append("g");
 
-        const coursesProcessed = Object.keys(courses.title).map(d => ({
-            id: courses.identifier[d],
-            title: courses.title[d],
-            description: courses.description[d],
+        const coursesProcessed = courses.map(d => ({
+            id: d.identifier,
+            title: d.title,
+            description: d.description,
         }));
 
-        const linksProcessed = links.map(d => ({
-            source: +d.node1,
-            target: +d.node2,
-            strength: +d.score,
-        })).sort((a, b) => b.strength - a.strength).splice(0, 10000);
+        const linksProcessed = links.map(d => {
+            console.log(d.course_index_1);
+            return {
+                source: +d.course_index_1,
+                target: +d.course_index_2,
+                strength: +d.similarity,
+            }
+        }).sort((a, b) => b.strength - a.strength).splice(0, 10000);
+
+        console.log(linksProcessed);
 
         const simulation = d3.forceSimulation(coursesProcessed)
             .force("charge", d3.forceManyBody().strength(-100))
@@ -93,6 +98,18 @@ d3.json("alex_courses.json").then(courses => {
                 text
                     .style("opacity", d => (!highlightId || d.id === highlightId || linksProcessed.filter(x => x.target.id === highlightId || x.source.id === highlightId).map(x => (x.target.id === highlightId) ? x.source.id : x.target.id).includes(d.id)) ? 1 : 0.1);
             }
+
+            const thisField = d3.select("input#courseSearch");
+            const thisButton = d3.select("button#courseSearchButton");
+
+            thisButton.on("click", () => {
+                const thisId = thisField._groups[0][0].value;
+                if (coursesProcessed.some(d => d.id === thisId)) {
+                    updateGraph(thisId);
+                } else {
+                    console.log("invalid id");
+                }
+            })
         });
 
         svg.call(d3.zoom()
