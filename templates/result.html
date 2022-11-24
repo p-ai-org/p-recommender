@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendations | P-Recs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $("#searchBox").autocomplete({
+                source : function(request, response) {
+                    $.ajax({
+                        type: "POST",
+                        url : "https://www.p-recs.com/search",
+                        dataType : "json",
+                        cache: false,
+                        data : {
+                            q : request.term
+                        },
+                        success : function(data) {
+                            response(data);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus + " " + errorThrown);
+                        }
+                    });
+                },
+                minLength : 1
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="flex-container">
+    <div class="left-col">
+        <h1>p-recs</h1>
+
+        <p>The 5Cs offer thousands of courses. Use p-recs to get course recommendations based on what you've already taken.</p>
+
+        <hr>
+
+        <form action="/rec" method="post">
+            <!-- name`  attribute specifies the name of a form.  -->
+            <!-- used to reference elements in JS OR
+            to reference form data after a form is submitted -->
+            <input type="text" name="search" id="searchBox" placeholder="Input course name or ID">
+            <!-- submit = button!; value = what shows up on the button-->
+            <input type="submit" value="Get recs">
+        </form>
+
+        <hr>
+
+        <div class="results">
+            <h3>Recs for {{ course }}</h3>
+
+            {% for table in tables %}
+            <div class="course-rec">
+                <h4>{{ table[2].title }}</h4>
+                <p>{{ table[0] }}, similarity: {{ table[1] }}</p>
+                <p>{{ table[2].description }}</p>
+                <p>Prerequisites: {{ table[2].prerequisites }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="right-col">
+        <p>Visualization of courses coming soon (real WIP screenshot)</p>
+    </div>
+</div>
+</body>
+</html>
