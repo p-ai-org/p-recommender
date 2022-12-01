@@ -61,10 +61,13 @@
 
             {% for table in tables %}
             <div class="course-rec">
-                <h4>{{ table[2].title }}</h4>
-                <p>{{ table[0] }}, similarity: {{ table[1] }}</p>
-                <p>{{ table[2].description }}</p>
-                <p>Prerequisites: {{ table[2].prerequisites }}</p>
+                <button type="button" class="collapsible">{{ table[2].title }}</button>
+                <!-- <h4>{{ table[2].title }}</h4> -->
+                <div class="content">
+                    <p>{{ table[0] }}, similarity: {{ table[1] }}</p>
+                    <p>{{ table[2].description }}</p>
+                    <p>Prerequisites: {{ table[2].prerequisites }}</p>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -73,5 +76,24 @@
         <p>Visualization of courses coming soon (real WIP screenshot)</p>
     </div>
 </div>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+</script>
+    
+
 </body>
 </html>

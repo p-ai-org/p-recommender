@@ -85,3 +85,23 @@ input[type="submit"]:hover {
 .course-rec p:last-of-type {
 	margin-bottom: 0;
 }
+
+.collapsible {
+	cursor: pointer;
+	padding: 8px;
+	margin: 16px 0;
+	background-color: #ddd;
+	border-radius: 8px;
+	border: 1px solid #666;
+  }
+  
+  /* .active, .collapsible:hover {
+	background-color: #555;
+  } */
+  
+  .content {
+	/* padding: 0 18px; */
+	display: none;
+	overflow: hidden;
+	/* background-color: #f1f1f1; */
+  }
