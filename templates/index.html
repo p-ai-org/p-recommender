@@ -3,8 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>P-Recs | 5C Course Recommender</title>
+	<link rel="shortcut icon" type="image/x-icon" href="https://images.squarespace-cdn.com/content/v1/5d5aca05ce74150001a5af3e/1597634234220-IKLAWLSE1YZXUI69T8IX/favicon.ico?format=100w"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+	<link rel="shortcut icon" type="image/x-icon" href="https://images.squarespace-cdn.com/content/v1/5d5aca05ce74150001a5af3e/1597634234220-IKLAWLSE1YZXUI69T8IX/favicon.ico?format=100w"/>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,7 +19,7 @@
 				source : function(request, response) {
 					$.ajax({
 						type: "POST",
-						url : "http://127.0.0.1:5000/search",
+						url : "https://www.p-recs.com/search",
 						dataType : "json",
 						cache: false,
 						data : {
@@ -49,7 +51,7 @@
 				<!-- name`  attribute specifies the name of a form.  -->
 				<!-- used to reference elements in JS OR
 				to reference form data after a form is submitted -->
-				<input type="text" name="search" id="searchBox" placeholder="Input course ID">
+				<input type="text" name="search" id="searchBox" placeholder="Input course name or ID">
 				<!-- submit = button!; value = what shows up on the button-->
 				<input type="submit" value="Get recs">
 			</form>
