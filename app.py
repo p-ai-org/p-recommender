@@ -7,6 +7,7 @@ import pickle
 from scipy import spatial
 import os 
 import json
+from recommend_GloVe.recommend_GloVe_average import recommend as recommend2
 
 with open('description_embeddings.pickle', 'rb') as handle:
     description_embeddings = pickle.load(handle)
@@ -15,6 +16,8 @@ with open("./static/courses.json", "r") as courses_file:
     courses = json.load(courses_file)
 
 def recommend(user_input):
+    return recommend2(user_input)
+    """
     def similarity(user_input, reference):
         return 1 - spatial.distance.cosine(description_embeddings[user_input.upper()], description_embeddings[reference])  
 
@@ -38,6 +41,7 @@ def recommend(user_input):
         return sorted(unsorted, key = lambda w: w[1], reverse = True)[:10]
     else:
     	raise ValueError("user_input must be a string or list of strings")
+    """
 
 app = Flask(__name__)
 
@@ -48,7 +52,11 @@ def index():
 @app.route('/rec',methods=['POST'])
 def getvalue():
     coursename = request.form['search'].split(" ")[0]
-    df = recommend(coursename)
+
+    #print(recommend2([coursename]))
+    #print(recommend([coursename]))
+    
+    df = recommend([coursename])
     return render_template('result.html', tables = df, course = coursename)
 
 @app.route('/search', methods=['POST'])
