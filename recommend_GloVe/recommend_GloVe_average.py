@@ -36,7 +36,7 @@ def get_lowerdiv_and_lower_level_course_ids(course_list, reference_num):
     return list(filter(lambda course_id:  get_course_id_num(course_id) < min(100,reference_num), course_list ))
 
 # computers the average vector
-def recommend(course_ids, rec_num = 10, blacklist_lowerlevel = True):
+def recommend(course_ids, rec_num = 10, blacklist_lowerlevel = False):
     '''
     Recommends courses similar to the ones in course_ids. Returns a list of of recomended course ids and their cosine similarities.
     Unlike the previous recomendation function, this one computes the average vector of the course_ids.
