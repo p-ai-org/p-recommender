@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<input type="text" id="main">
+<button id="mainSubmit">Submit</button>
+<ul id="items"></ul>
+<script>
+    const thisInput = document.getElementById("main");
+    const thisSubmit = document.getElementById("mainSubmit");
+    const thisItems = document.getElementById("items");
+
+    let counter = 0;
+    let itemsArr = [];
+
+    thisSubmit.onclick = () => {
+        const newItem = document.createElement("li");
+        newItem.id = `item-num-${counter}`;
+        const newItemText = document.createTextNode(thisInput.value);
+        const newItemDelete = document.createElement("button");
+        newItemDelete.id = `item-delete-${counter}`;
+        newItemDelete.onclick = (e) => {
+            const thisId = +e.target.id.substring(e.target.id.length - 1);
+            document.getElementById(`item-num-${thisId}`).remove();
+            itemsArr = itemsArr.filter(d => d.id !== thisId);
+            console.log(itemsArr);
+        }
+        const newItemDeleteText = document.createTextNode("Delete");
+        newItemDelete.appendChild(newItemDeleteText);
+        newItem.appendChild(newItemText);
+        newItem.appendChild(newItemDelete);
+        thisItems.appendChild(newItem);
+        itemsArr.push({
+            id: counter,
+            value: thisInput.value,
+        });
+        console.log(itemsArr);
+        thisInput.value = "";
+        counter++;
+    }
+</script>
+</body>
+</html>
