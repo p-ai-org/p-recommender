@@ -8,7 +8,7 @@ with open("./static/courses.json", "r") as courses_file:
     courses = json.load(courses_file)
 
 folder = "recommend_GloVe/"
-with open(folder+'desc embed unweighted.pickle', 'rb') as handle:
+with open(folder+"desciption_embeding_unweighted.pickle", 'rb') as handle:
     compatible_courses = [x["identifier"] for x in courses]
     description_embeddings = pickle.load(handle)
     description_embeddings = {key : value for key, value in description_embeddings.items() if key in compatible_courses}
