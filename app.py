@@ -23,9 +23,6 @@ def index():
 @app.route('/rec',methods=['POST'])
 def getvalue():
     coursename = request.form['search'].split(" ")[0]
-
-    #print(recommend2([coursename]))
-    #print(recommend([coursename]))
     
     df = recommend([coursename])
     return render_template('result.html', tables = df, course = coursename)
