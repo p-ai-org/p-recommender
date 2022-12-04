@@ -61,10 +61,9 @@
 
             {% for table in tables %}
             <div class="course-rec">
-                <button type="button" class="collapsible">{{ table[2].title }}</button>
+                <button type="button" class="collapsible button">{{ table[2].title }}, {{ table[0] }}, similarity: {{ table[1] }}</button>
                 <!-- <h4>{{ table[2].title }}</h4> -->
                 <div class="content">
-                    <p>{{ table[0] }}, similarity: {{ table[1] }}</p>
                     <p>{{ table[2].description }}</p>
                     <p>Prerequisites: {{ table[2].prerequisites }}</p>
                 </div>
