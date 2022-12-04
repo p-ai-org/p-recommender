@@ -9,8 +9,8 @@ import os
 import json
 from recommend_GloVe.recommend_GloVe_average import recommend as recommend2
 
-with open('description_embeddings.pickle', 'rb') as handle:
-    description_embeddings = pickle.load(handle)
+#with open('description_embeddings.pickle', 'rb') as handle:
+#    description_embeddings = pickle.load(handle)
 
 with open("./static/courses.json", "r") as courses_file:
     courses = json.load(courses_file)

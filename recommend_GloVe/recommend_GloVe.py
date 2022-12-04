@@ -31,6 +31,7 @@ def recommend(course_ids, rec_num = 10, drop_lowerdiv_if_lower_level= False):
 
     def closest_courses(course_id):
         '''closest_courses(course_id) -> list of all courses and their cosine simililarity with course_id sorted by cosine similarity'''
+        if drop_lowerdiv_if_lower_level:
         unsorted = [ (course, similarity(course_id, course))
                     for course in description_embeddings.keys()]
         return sorted(unsorted, key = lambda w: w[1], reverse = True)
