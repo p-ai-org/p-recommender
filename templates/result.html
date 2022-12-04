@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" type="image/x-icon" href="https://images.squarespace-cdn.com/content/v1/5d5aca05ce74150001a5af3e/1597634234220-IKLAWLSE1YZXUI69T8IX/favicon.ico?format=100w">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
@@ -61,10 +62,12 @@
 
             {% for table in tables %}
             <div class="course-rec">
-                <h4>{{ table[2].title }}</h4>
-                <p>{{ table[0] }}, similarity: {{ table[1] }}</p>
-                <p>{{ table[2].description }}</p>
-                <p>Prerequisites: {{ table[2].prerequisites }}</p>
+                <button type="button" class="collapsible button">{{ table[2].title }}, {{ table[0] }}, similarity: {{ table[1] }}</button>
+                <!-- <h4>{{ table[2].title }}</h4> -->
+                <div class="content">
+                    <p>{{ table[2].description }}</p>
+                    <p>Prerequisites: {{ table[2].prerequisites }}</p>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -73,5 +76,24 @@
         <p>Visualization of courses coming soon (real WIP screenshot)</p>
     </div>
 </div>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+</script>
+    
+
 </body>
 </html>

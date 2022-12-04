@@ -66,16 +66,16 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-	opacity: 1.0;
+	opacity: 0.9;
 	box-shadow: 0 4px 4px 2px rgba(0,0,0,0.5);
 }
 
 .course-rec {
 	padding: 8px;
 	margin: 16px 0;
-	background-color: #ddd;
+/* 	background-color: #ddd; */
 	border-radius: 8px;
-	border: 1px solid #666;
+	border: 2px solid white;
 }
 
 .course-rec h4 {
@@ -85,3 +85,31 @@ input[type="submit"]:hover {
 .course-rec p:last-of-type {
 	margin-bottom: 0;
 }
+
+.collapsible {
+	cursor: pointer;
+  }
+
+
+.content {
+	padding: 1px;
+	display: none;
+	overflow: hidden;
+	font-size: 14px
+	/* background-color: #f1f1f1; */
+  }
+
+.button {
+  background-color: red;
+	opacity: 0.75;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button:hover {
+	opacity: 0.9;}
