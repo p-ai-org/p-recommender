@@ -1,7 +1,7 @@
 
 # render_template -  api uses to generate html 
 # request - object we need for forms 
-from flask import Flask, jsonify, request, redirect, render_template
+from flask import Flask, jsonify, request, redirect, render_template, flash
 import pandas as pd 
 import pickle
 from scipy import spatial
@@ -47,9 +47,17 @@ def index():
 
 @app.route('/rec',methods=['POST'])
 def getvalue():
-    coursename = request.form['search'].split(" ")[0]
-    df = recommend(coursename)
-    return render_template('result.html', tables = df, course = coursename)
+    # coursename = request.form['search'].split(" ")[0]
+    # df = recommend(coursename)
+    # return render_template('result.html', tables = df, course = coursename)
+    try:
+        coursename = request.form['search'].split(" ")[0]
+        df = recommend(coursename)
+        return render_template('result.html', tables = df, course = coursename)
+    except Exception as e:
+        error = "Invalid Course ID. Please Try Again"
+        return render_template('index.html', error = error) 
+
 
 @app.route('/search', methods=['POST'])
 def search():

@@ -19,7 +19,7 @@
                 source : function(request, response) {
                     $.ajax({
                         type: "POST",
-                        url : "https://www.p-recs.com/search",
+                        url : "http://127.0.0.1:5000/search",
                         dataType : "json",
                         cache: false,
                         data : {
@@ -55,6 +55,9 @@
             <!-- submit = button!; value = what shows up on the button-->
             <input type="submit" value="Get recs">
         </form>
+        {% if error %}
+				<p class="error"><strong>Error:</strong> {{ error }}
+		{% endif %}
 
         <hr>
 
