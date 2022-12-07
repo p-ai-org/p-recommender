@@ -19,6 +19,14 @@ body {
 	text-align: center;
 }
 
+.checkboxes input[type="checkbox"] {
+	padding: 7px;
+	text-align: left;
+    width: auto;
+    margin-left: 0;
+	display: inline-block;
+}
+
 @media (min-width: 600px) {
 	.flex-container {
 		display: flex;

@@ -22,16 +22,16 @@ def index():
 
 @app.route('/rec',methods=['POST'])
 def getvalue():
-    coursename = request.form['search'].split(" ")[0]
-    
-    df = recommend([coursename])
-    return render_template('result.html', tables = df, course = coursename)
+	coursename = request.form['search'].split(" ")[0] 
+	#lowlvl = len(request.form.getlist('lowlvl')) == 1
+	lowlvl = 'lowlvl' in request.form
+	df = recommend([coursename], blacklist_lowerlevel=lowlvl)
+	return render_template('result.html', tables = df, course = coursename)
 
 @app.route('/search', methods=['POST'])
 def search():
 	term = request.form['q']
 	print ('term: ', term)
-	
 	SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 	json_url = os.path.join(SITE_ROOT, "data", "newresults.json")
 	json_data = json.loads(open(json_url).read())
