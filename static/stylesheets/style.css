@@ -5,6 +5,27 @@ body {
 
 .left-col {
 	padding: 16px;
+	position: relative;
+}
+
+a.left-col {
+	color: black;
+  	background-color: transparent;
+	text-decoration: none;
+	border: 0;
+	font-size: 35px;
+	
+}
+
+.left-col img {
+	float: left;
+	width: 70px;
+  	height: 70px;
+	padding-top: 10px;
+}
+
+h1 {
+	padding-bottom: 10px;
 }
 
 .right-col {
