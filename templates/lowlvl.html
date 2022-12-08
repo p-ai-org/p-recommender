@@ -1,0 +1,21 @@
+<a href="/"><img src="/static/p-ai.png" alt="p-ai"/></a>
+<h1><a class="left-col" href="/">p-recs</a></h1>
+
+<p>The 5Cs offer thousands of courses. Use p-recs to get course recommendations based on what you've already taken.</p>
+
+<hr>
+
+<form action="/rec" method="post">
+    <!-- name`  attribute specifies the name of a form.  -->
+    <!-- used to reference elements in JS OR
+    to reference form data after a form is submitted -->
+    <input type="text" name="search" id="searchBox" placeholder="Input course name or ID">
+    <!-- submit = button!; value = what shows up on the button-->
+    <input type="submit" value="Get recs">
+    <div class="checkboxes">
+        <input type="checkbox" name="lowlvl" value="1"/> Remove low-level (number under 100) courses?
+    </div>
+</form>
+{% if error %}
+<p class="error"><strong>Error:</strong> {{ error }}
+    {% endif %}

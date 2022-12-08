@@ -100,11 +100,9 @@ input[type="submit"]:hover {
 }
 
 .course-rec {
-	padding: 8px;
 	margin: 16px 0;
-/* 	background-color: #ddd; */
+ 	background-color: #eee;
 	border-radius: 8px;
-	border: 2px solid white;
 }
 
 .course-rec h4 {
@@ -121,7 +119,7 @@ input[type="submit"]:hover {
 
 
 .content {
-	padding: 1px;
+	padding: 16px;
 	display: none;
 	overflow: hidden;
 	font-size: 14px
@@ -129,16 +127,26 @@ input[type="submit"]:hover {
   }
 
 .button {
+	width: 100%;
+	display: block;
   background-color: red;
 	opacity: 0.75;
   border: none;
   color: white;
-  padding: 16px 32px;
+  padding: 16px 8px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
   font-size: 16px;
+	font-family: "IBM Plex Sans", sans-serif;
 }
 
 .button:hover {
 	opacity: 0.9;}
+
+.uppercase-title {
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 12px;
+	margin-bottom: 4px;
+	margin-top: 0
+}

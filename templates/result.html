@@ -19,7 +19,7 @@
                 source : function(request, response) {
                     $.ajax({
                         type: "POST",
-                        url : "https://www.p-recs.com/search",
+                        url : "http://localhost:5000/search",
                         dataType : "json",
                         cache: false,
                         data : {
@@ -41,27 +41,7 @@
 <body>
 <div class="flex-container">
     <div class="left-col">
-        <a href="/"><img src="/static/p-ai.png" alt="p-ai" /></a>
-        <h1><a class="left-col" href="/">p-recs</a></h1>
-
-        <p>The 5Cs offer thousands of courses. Use p-recs to get course recommendations based on what you've already taken.</p>
-
-        <hr>
-
-        <form action="/rec" method="post">
-            <!-- name`  attribute specifies the name of a form.  -->
-            <!-- used to reference elements in JS OR
-            to reference form data after a form is submitted -->
-            <input type="text" name="search" id="searchBox" placeholder="Input course name or ID">
-            <!-- submit = button!; value = what shows up on the button-->
-            <input type="submit" value="Get recs">
-            <div class = "checkboxes">
-                <input type="checkbox" name="lowlvl" value="1"/> Remove low-level courses?
-            </div>
-        </form>
-        {% if error %}
-				<p class="error"><strong>Error:</strong> {{ error }}
-		{% endif %}
+        {% include 'lowlvl.html' %}
 
         <hr>
 
@@ -70,11 +50,23 @@
 
             {% for table in tables %}
             <div class="course-rec">
-                <button type="button" class="collapsible button">{{ table[2].title }}, {{ table[0] }}, similarity: {{ table[1] }}</button>
+                <button type="button" class="collapsible button">
+                    <p class="uppercase-title">
+                        {{ table[0] }}
+                    </p>
+                    {{ table[2].title }}
+                    <p style="font-size: 12px; opacity: 0.6; margin-top: 4px;">similarity: {{ table[1] }}</p>
+                    <p style="opacity: 0.5; margin-top: 4px; line-height: 10px" class="arrow">⏷</p>
+                </button>
                 <!-- <h4>{{ table[2].title }}</h4> -->
                 <div class="content">
+                    <p class="uppercase-title">Description</p>
                     <p>{{ table[2].description }}</p>
-                    <p>Prerequisites: {{ table[2].prerequisites }}</p>
+                    <hr style="margin: 16px 0">
+                    <p class="uppercase-title">
+                        Prerequisites
+                    </p>
+                    <p>{% if table[2].prerequisites %}{{ table[2].prerequisites }}{% else %}None{% endif %}</p>
                 </div>
             </div>
             {% endfor %}
@@ -91,6 +83,7 @@
     
     for (i = 0; i < coll.length; i++) {
       coll[i].addEventListener("click", function() {
+          const isActive = this.classList.contains("active");
         this.classList.toggle("active");
         var content = this.nextElementSibling;
         if (content.style.display === "block") {
@@ -98,6 +91,7 @@
         } else {
           content.style.display = "block";
         }
+        this.getElementsByClassName("arrow")[0].innerHTML = isActive ? "⏷" : "⏶";
       });
     }
 </script>
