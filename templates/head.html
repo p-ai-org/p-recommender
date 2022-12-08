@@ -1,0 +1,36 @@
+<meta charset="UTF-8">
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="shortcut icon" type="image/x-icon" href="https://images.squarespace-cdn.com/content/v1/5d5aca05ce74150001a5af3e/1597634234220-IKLAWLSE1YZXUI69T8IX/favicon.ico?format=100w">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<script>
+    $(function() {
+        $("#searchBox").autocomplete({
+            source : function(request, response) {
+                $.ajax({
+                    type: "POST",
+                    url : "https://www.p-recs.com/search",
+                    dataType : "json",
+                    cache: false,
+                    data : {
+                        q : request.term
+                    },
+                    success : function(data) {
+                        response(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus + " " + errorThrown);
+                    }
+                });
+            },
+            minLength : 1
+        });
+    });
+</script>
