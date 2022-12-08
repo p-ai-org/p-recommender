@@ -11,7 +11,7 @@ svg
 const bg = svg.append("rect").attr("width", w).attr("height", h).attr("fill", "white");
 
 d3.csv("clean_data.csv").then(courses => {
-    d3.csv("glove_connections.csv").then(links => {
+    d3.csv("glove_connections_2.csv").then(links => {
         const g = svg.append("g");
 
         const coursesProcessed = courses.map(d => ({
@@ -20,14 +20,16 @@ d3.csv("clean_data.csv").then(courses => {
             description: d.description,
         }));
 
-        const linksProcessed = links.map(d => {
+        const linksProcessed = links.map((d, i) => {
             console.log(d.course_index_1);
             return {
                 source: +d.course_index_1,
                 target: +d.course_index_2,
-                strength: +d.similarity,
+                strength: Math.max(0, (+d.similarity - 0.4)) * 1.67,
+                // defaultShow: Math.random() > 0.8
+                // strength: +d.similarity,
             }
-        }).sort((a, b) => b.strength - a.strength).splice(0, 10000);
+        });
 
         console.log(linksProcessed);
 
@@ -38,78 +40,74 @@ d3.csv("clean_data.csv").then(courses => {
             // .force("collision", d3.forceCollide().radius(5))
             .stop();
 
-        const loading = g.append("text").text("loading...");
+        let isLoading = false;
 
-        d3.timeout(() => {
-            for (let i = 0, n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())); i < n; ++i) {
-                simulation.tick();
+        for (let i = 0, n = Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())); i < n; ++i) {
+            simulation.tick();
+        }
+
+        const linkNodes = g.selectAll("line.link")
+            .data(linksProcessed.filter(() => Math.random() > 0.8))
+            .join("line")
+            .attr("class", "link")
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y)
+            .attr("stroke", "red")
+            // .attr("stroke-width", d => Math.sqrt(d.strength) * 4)
+            .attr("stroke-width", 2)
+            .style("opacity", d => 0.2 * d.strength);
+
+        const nodes = g.selectAll("circle.course")
+            .data(coursesProcessed)
+            .join("circle")
+            .attr("class", "course")
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", d => 3)
+            .attr("fill", d => "red")
+            .on("click", (e, d) => {
+                updateGraph(d.id);
+            });
+
+        const text = g.selectAll("text.courseLabel")
+            .data(coursesProcessed)
+            .join("text")
+            .attr("text-anchor", "middle")
+            .attr("class", "courseLabel")
+            .attr("x", d => d.x)
+            .attr("y", d => d.y)
+            .text(d => d.title)
+            .attr("font-size", "6px")
+            .style("opacity", "0.75")
+            .attr("fill", "red");
+
+        function updateGraph(highlightId) {
+            linkNodes
+                .style("opacity", d => (!highlightId || d.source.id === highlightId || d.target.id === highlightId) ? d.strength : d.strength * 0.1);
+
+            nodes
+                .attr("r", d => d.id === highlightId ? 10 : 3)
+                .attr("fill", d => d.id === highlightId ? "blue" : "red")
+                .style("opacity", d => (!highlightId || d.id === highlightId || linksProcessed.filter(x => x.target.id === highlightId || x.source.id === highlightId).map(x => (x.target.id === highlightId) ? x.source.id : x.target.id).includes(d.id)) ? 1 : 0.1);
+
+            text
+                .style("opacity", d => (!highlightId || d.id === highlightId || linksProcessed.filter(x => x.target.id === highlightId || x.source.id === highlightId).map(x => (x.target.id === highlightId) ? x.source.id : x.target.id).includes(d.id)) ? 1 : 0.1);
+        }
+
+        updateGraph();
+
+        const thisField = d3.select("input#courseSearch");
+        const thisButton = d3.select("button#courseSearchButton");
+
+        thisButton.on("click", () => {
+            const thisId = thisField._groups[0][0].value;
+            if (coursesProcessed.some(d => d.id === thisId)) {
+                updateGraph(thisId);
+            } else {
+                console.log("invalid id");
             }
-
-            loading.remove();
-
-            const links = g.selectAll("line.link")
-                .data(linksProcessed)
-                .join("line")
-                .attr("class", "link")
-                .attr("x1", d => d.source.x)
-                .attr("y1", d => d.source.y)
-                .attr("x2", d => d.target.x)
-                .attr("y2", d => d.target.y)
-                .attr("stroke", "red")
-                // .attr("stroke-width", d => Math.sqrt(d.strength) * 4)
-                .attr("stroke-width", 2)
-                .style("opacity", d => d.strength);
-
-            const nodes = g.selectAll("circle.course")
-                .data(coursesProcessed)
-                .join("circle")
-                .attr("class", "course")
-                .attr("cx", d => d.x)
-                .attr("cy", d => d.y)
-                .attr("r", d => 3)
-                .attr("fill", d => "red")
-                .on("click", (e, d) => {
-                    updateGraph(d.id);
-                });
-
-            const text = g.selectAll("text.courseLabel")
-                .data(coursesProcessed)
-                .join("text")
-                .attr("text-anchor", "middle")
-                .attr("class", "courseLabel")
-                .attr("x", d => d.x)
-                .attr("y", d => d.y)
-                .text(d => d.title)
-                .attr("font-size", "6px")
-                .style("opacity", "0.75")
-                .attr("fill", "red");
-
-            bg.on("click", updateGraph());
-
-            function updateGraph(highlightId) {
-                links
-                    .style("opacity", d => (!highlightId || d.source.id === highlightId || d.target.id === highlightId) ? d.strength : d.strength * 0.1);
-
-                nodes
-                    .attr("r", d => d.id === highlightId ? 10 : 3)
-                    .attr("fill", d => d.id === highlightId ? "blue" : "red")
-                    .style("opacity", d => (!highlightId || d.id === highlightId || linksProcessed.filter(x => x.target.id === highlightId || x.source.id === highlightId).map(x => (x.target.id === highlightId) ? x.source.id : x.target.id).includes(d.id)) ? 1 : 0.1);
-
-                text
-                    .style("opacity", d => (!highlightId || d.id === highlightId || linksProcessed.filter(x => x.target.id === highlightId || x.source.id === highlightId).map(x => (x.target.id === highlightId) ? x.source.id : x.target.id).includes(d.id)) ? 1 : 0.1);
-            }
-
-            const thisField = d3.select("input#courseSearch");
-            const thisButton = d3.select("button#courseSearchButton");
-
-            thisButton.on("click", () => {
-                const thisId = thisField._groups[0][0].value;
-                if (coursesProcessed.some(d => d.id === thisId)) {
-                    updateGraph(thisId);
-                } else {
-                    console.log("invalid id");
-                }
-            })
         });
 
         svg.call(d3.zoom()
@@ -119,7 +117,32 @@ d3.csv("clean_data.csv").then(courses => {
         );
 
         function zoomed({transform}) {
-            g.attr("transform", transform);
+            if (!isLoading) {
+                isLoading = true;
+
+                g.attr("transform", transform);
+
+                const filteredLinks = linksProcessed.filter(() => Math.random() < (0.5 * Math.min(transform.k, 2)));
+
+                console.log(filteredLinks, transform.k);
+
+                svg.selectAll(".link")
+                    .data(filteredLinks)
+                    .join("line")
+                    .attr("class", "link")
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y)
+                    .attr("stroke", "red")
+                    // .attr("stroke-width", d => Math.sqrt(d.strength) * 4)
+                    .attr("stroke-width", 2)
+                    .style("opacity", d => 0.2 * d.strength);
+
+                // updateGraph();
+
+                isLoading = false;
+            }
         }
     });
 })
