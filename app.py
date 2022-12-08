@@ -23,8 +23,8 @@ def index():
 @app.route('/rec',methods=['POST'])
 def getvalue():
     coursename = request.form['search'].split(" ")[0]
-    
-    df = recommend([coursename])
+    lowlvl = 'lowlvl' in request.form
+    df = recommend([coursename], blacklist_lowerlevel=lowlvl)
     return render_template('result.html', tables = df, course = coursename)
 
 @app.route('/search', methods=['POST'])
