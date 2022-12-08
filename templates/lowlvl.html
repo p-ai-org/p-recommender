@@ -11,10 +11,12 @@
     to reference form data after a form is submitted -->
     <input type="text" name="search" id="searchBox" placeholder="Input course name or ID">
     <!-- submit = button!; value = what shows up on the button-->
-    <input type="submit" value="Get recs">
     <div class="checkboxes">
-        <input type="checkbox" name="lowlvl" value="1"/> Remove low-level (< 100) courses
+        <input type="checkbox" name="lowlvl" value="1"/> Remove lower level courses
+        <br>
+        <input type="checkbox" name="dept_filter" value="1"/> Remove same department courses
     </div>
+    <input type="submit" value="Get recs">
 </form>
 {% if error %}
 <p class="error"><strong>Error:</strong> {{ error }}
