@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>P-Recs | 5C Course Recommender</title>
+	<title>p-recs | 5C Course Recommender</title>
+	<link rel="shortcut icon" type="image/x-icon" href="https://images.squarespace-cdn.com/content/v1/5d5aca05ce74150001a5af3e/1597634234220-IKLAWLSE1YZXUI69T8IX/favicon.ico?format=100w">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
 	<link rel="shortcut icon" type="image/x-icon" href="https://images.squarespace-cdn.com/content/v1/5d5aca05ce74150001a5af3e/1597634234220-IKLAWLSE1YZXUI69T8IX/favicon.ico?format=100w">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="shortcut icon" type="image/x-icon" href="https://images.squarespace-cdn.com/content/v1/5d5aca05ce74150001a5af3e/1597634234220-IKLAWLSE1YZXUI69T8IX/favicon.ico?format=100w">
 	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
@@ -40,7 +42,8 @@
 <body>
 	<div class="flex-container">
 		<div class="left-col">
-			<h1>p-recs</h1>
+			<a href="/"><img src="/static/p-ai.png" alt="p-ai" /></a>
+			<h1><a class="left-col" href="/">p-recs</a></h1>
 
 			<p>The 5Cs offer thousands of courses. Use p-recs to get course recommendations based on what you've already taken.</p>
 
@@ -53,6 +56,9 @@
 				<input type="text" name="search" id="searchBox" placeholder="Input course name or ID">
 				<!-- submit = button!; value = what shows up on the button-->
 				<input type="submit" value="Get recs">
+				<div class = "checkboxes">
+					<input type="checkbox" name="lowlvl" value="1"/> Remove low-level courses?
+				</div>
 			</form>
 			{% if error %}
 				<p class="error"><strong>Error:</strong> {{ error }}
