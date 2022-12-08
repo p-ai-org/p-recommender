@@ -22,7 +22,7 @@
                     </p>
                     {{ table[2].title }}
                     <p style="font-size: 12px; opacity: 0.6; margin-top: 4px;">similarity: {{ table[1] }}</p>
-                    <p style="opacity: 0.5; margin-top: 4px; line-height: 10px" class="arrow">⏷</p>
+                    <p style="opacity: 0.5; margin-top: 4px; line-height: 10px" class="arrow"><i class="fa-solid fa-caret-down"></i></p>
                 </button>
                 <!-- <h4>{{ table[2].title }}</h4> -->
                 <div class="content">
@@ -57,7 +57,7 @@
         } else {
           content.style.display = "block";
         }
-        this.getElementsByClassName("arrow")[0].innerHTML = isActive ? "⏷" : "⏶";
+        this.getElementsByClassName("arrow")[0].innerHTML = isActive ? "<i class=\"fa-solid fa-caret-down\"></i>" : "<i class=\"fa-solid fa-caret-up\"></i>";
       });
     }
 </script>
