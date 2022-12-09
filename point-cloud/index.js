@@ -31,13 +31,10 @@ d3.csv("clean_data.csv").then(courses => {
             }
         });
 
-        console.log(linksProcessed);
-
         const simulation = d3.forceSimulation(coursesProcessed)
             .force("charge", d3.forceManyBody().strength(-100))
             .force("link", d3.forceLink(linksProcessed).strength(d => d.strength))
             .force("center", d3.forceCenter(w/2, h/2))
-            // .force("collision", d3.forceCollide().radius(5))
             .stop();
 
         let isLoading = false;
@@ -46,8 +43,10 @@ d3.csv("clean_data.csv").then(courses => {
             simulation.tick();
         }
 
+        console.log(linksProcessed, coursesProcessed);
+
         const linkNodes = g.selectAll("line.link")
-            .data(linksProcessed.filter(() => Math.random() > 0.8))
+            .data(linksProcessed) // .filter(() => Math.random() > 0.8)
             .join("line")
             .attr("class", "link")
             .attr("x1", d => d.source.x)
@@ -79,9 +78,9 @@ d3.csv("clean_data.csv").then(courses => {
             .attr("x", d => d.x)
             .attr("y", d => d.y)
             .text(d => d.title)
-            .attr("font-size", "6px")
+            .attr("font-size", "24px")
             .style("opacity", "0.75")
-            .attr("fill", "red");
+            .attr("fill", "black");
 
         function updateGraph(highlightId) {
             linkNodes
@@ -93,7 +92,7 @@ d3.csv("clean_data.csv").then(courses => {
                 .style("opacity", d => (!highlightId || d.id === highlightId || linksProcessed.filter(x => x.target.id === highlightId || x.source.id === highlightId).map(x => (x.target.id === highlightId) ? x.source.id : x.target.id).includes(d.id)) ? 1 : 0.1);
 
             text
-                .style("opacity", d => (!highlightId || d.id === highlightId || linksProcessed.filter(x => x.target.id === highlightId || x.source.id === highlightId).map(x => (x.target.id === highlightId) ? x.source.id : x.target.id).includes(d.id)) ? 1 : 0.1);
+                .style("opacity", d => (!highlightId || d.id === highlightId || linksProcessed.filter(x => x.target.id === highlightId || x.source.id === highlightId).map(x => (x.target.id === highlightId) ? x.source.id : x.target.id).includes(d.id)) ? 1 : 0);
         }
 
         updateGraph();
@@ -121,25 +120,6 @@ d3.csv("clean_data.csv").then(courses => {
                 isLoading = true;
 
                 g.attr("transform", transform);
-
-                const filteredLinks = linksProcessed.filter(() => Math.random() < (0.5 * Math.min(transform.k, 2)));
-
-                console.log(filteredLinks, transform.k);
-
-                svg.selectAll(".link")
-                    .data(filteredLinks)
-                    .join("line")
-                    .attr("class", "link")
-                    .attr("x1", d => d.source.x)
-                    .attr("y1", d => d.source.y)
-                    .attr("x2", d => d.target.x)
-                    .attr("y2", d => d.target.y)
-                    .attr("stroke", "red")
-                    // .attr("stroke-width", d => Math.sqrt(d.strength) * 4)
-                    .attr("stroke-width", 2)
-                    .style("opacity", d => 0.2 * d.strength);
-
-                // updateGraph();
 
                 isLoading = false;
             }
