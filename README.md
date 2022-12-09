@@ -1,11 +1,10 @@
-# p-recs
+# p-recs.com | 5C Course Recommender
 A course recommendation system for the Claremont Colleges. Led by Saatvik Kher.
 
 Live site: [p-recs.com](https://p-recs.com)
 
 ### Collaborators
 
-=======
 - Tilo Reneau-Cardoso
 - Samson Zhang
 - Rachel Yang
