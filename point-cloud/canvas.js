@@ -8,7 +8,7 @@ const labelPadding = 0.5;
 d3.select(canvas).attr("width", w).attr("height", h).style("background-color", "#222");
 
 d3.csv("glove_connections_2.csv").then(links => {
-    d3.json("precomp-nodes.json").then(nodes => {
+    d3.json("precomp-nodes-fixed-indices.json").then(nodes => {
         const linksProcessed = links.map((d, i) => {
             return {
                 x1: nodes.find(x => x.index === +d.course_index_1)?.x || 0,
@@ -33,6 +33,8 @@ d3.csv("glove_connections_2.csv").then(links => {
             const r = Math.min(1.5, 5 / transform.k);
             const linkedIndices = [...new Set(linksProcessed.filter(d => [d.source, d.target].includes(selectedIndex)).reduce((a, b) => [...a, b.source, b.target], []))];
             let labeledNodes = [];
+
+            console.log(linkedIndices);
 
             context.save();
             context.clearRect(0, 0, w, h);
@@ -103,7 +105,7 @@ d3.csv("glove_connections_2.csv").then(links => {
 
 
             for (let i of (linkedIndices.length ? linkedIndices : nodes)) {
-                const thisNode = linkedIndices.length ? nodes[i] : i;
+                const thisNode = linkedIndices.length ? nodes.find(d => d.index === i) : i;
                 const thisCourseTitle = thisNode.title;
                 const titleWidth = thisCourseTitle.length * letterWidth;
                 const thisLeft = thisNode.x - titleWidth / 2;
