@@ -8,7 +8,7 @@ const labelPadding = 0.5;
 d3.select(canvas).attr("width", w).attr("height", h).style("background-color", "#222");
 
 d3.csv("glove_connections_2.csv").then(links => {
-    d3.json("precomp-nodes-fixed-indices.json").then(nodes => {
+    d3.json("precomp-nodes-fixed-indices-v2.json").then(nodes => {
         const linksProcessed = links.map((d, i) => {
             return {
                 x1: nodes.find(x => x.index === +d.course_index_1)?.x || 0,

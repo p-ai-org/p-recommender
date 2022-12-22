@@ -10,18 +10,21 @@ svg
 
 const bg = svg.append("rect").attr("width", w).attr("height", h).attr("fill", "white");
 
-d3.csv("clean_data.csv").then(courses => {
+d3.json("precomp-nodes-fixed-indices.json").then(courses => {
     d3.csv("glove_connections_2.csv").then(links => {
         const g = svg.append("g");
 
         const coursesProcessed = courses.map(d => ({
-            id: d.identifier,
+            id: d.id,
             title: d.title,
-            description: d.description,
-        }));
+            index: d.index,
+            // description: d.description,
+        })).sort((a, b) => +a.index - +b.index);
+
+        console.log(coursesProcessed[0]);
 
         const linksProcessed = links.map((d, i) => {
-            console.log(d.course_index_1);
+            // console.log(d.course_index_1);
             return {
                 source: +d.course_index_1,
                 target: +d.course_index_2,
