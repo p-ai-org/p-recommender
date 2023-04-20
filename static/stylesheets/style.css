@@ -29,7 +29,7 @@ h1 {
 }
 
 .right-col {
-	width: 100%;
+	width: 30%;
 	height: 100vh;
 	background-image: url("/static/pointcloud.jpg");
 	background-position: center center;
@@ -55,7 +55,7 @@ h1 {
 	}
 
 	.left-col {
-		width: 300px;
+		width: 80%;
 		height: 100%;
 		border-right: 1px solid black;
 		flex-grow: 0;
@@ -79,7 +79,7 @@ hr {
 input {
 	padding: 4px 8px;
 	font-size: 20px;
-	width: 100%;
+	width: 50%;
 	box-sizing: border-box;
 	display: block;
 	margin: 8px 0;
@@ -90,6 +90,7 @@ input[type="submit"] {
 	background-color: red;
 	border: 0;
 	color: white;
+	float: right;
 	opacity: 0.75;
 	transition: all 0.2s ease;
 }
