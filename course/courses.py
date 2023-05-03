@@ -5,12 +5,12 @@ import pandas as pd
 # Creates list of all course areas offered at the 5Cs
 
 courseareas = requests.get(f'http://jicsweb.pomona.edu/api/courseareas')
-coursecodes = []
+coursedict = {}
 for codes in courseareas.json():
-        coursecodes.append(codes['Code'])
+	coursedict.update({codes['Code']: codes['Description']})
 
 
-# Generates url for all valid course areas of this semester
+# Generates url for all valid course areas of this semester and returns json
 
 def reqCourseInfo(code):
 	payload = {}
@@ -24,28 +24,33 @@ def reqCourseInfo(code):
 		print(f"No courses offered in course area {code} this semester")
 
 
-
 # Calling above function to get all valid course areas this current semester
-valid = []
-for code in coursecodes:
+valid = {}
+for code in coursedict.keys():
 	if reqCourseInfo(code) is not None:
-		valid.append(code)
+		valid[code] = coursedict[code]
+
 
 # Writing data to CSV
 
-header = ['CourseCode', 'Name', 'Description', 'Faculty', 'Campus', 'MeetTime', 'Weekdays']
+header = ['Course Area', 'CourseCode', 'Name', 'Course Description', 'Faculty', 'Campus', 'MeetTime', 'Weekdays', 'Prerequisites']
 
 with open('courses.csv', 'w', encoding='UTF8', newline='') as f:
 	writer = csv.writer(f)
 	writer.writerow(header)
-	for course in valid:
-		courseInfo = reqCourseInfo(course)
-		for course in courseInfo:
+	for current in valid:
+		for course in reqCourseInfo(current):
 			try:
+				CourseArea = valid[current]
 				CourseCode = course['CourseCode']
 				Name = course['Name']
 				Description = course['Description']
 				Faculty = []
+				reqs = Description.find("Prerequisite:")
+				if reqs != -1:
+					Prerequisites = Description[reqs + len("Prerequisites:"):]
+				else:
+					Prerequisites = 'None'
 				if len(course['Instructors']) == 1:
 					Faculty = course['Instructors'][0]['Name']
 					if Faculty == ', taff':
@@ -70,9 +75,7 @@ with open('courses.csv', 'w', encoding='UTF8', newline='') as f:
 						Weekdays.append(schedule['Weekdays'])
 			except:
 				print("Insufficient information on course")
-			data = [CourseCode, Name, Description, Faculty, Campus, MeetTime, Weekdays]
+			data = [CourseArea, CourseCode, Name, Description, Faculty, Campus, MeetTime, Weekdays, Prerequisites]
 			writer.writerow(data)
 
 df = pd.read_csv('courses.csv')
-newdf = df.drop_duplicates()
-newdf.to_csv('updatedcoursecatalog.csv', index=False)
