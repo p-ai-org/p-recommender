@@ -13,7 +13,6 @@
 
         <div class="results">
             <h3>Recs for {{ course }}</h3>
-
             {% for table in tables %}
             <div class="course-rec">
                 <button type="button" class="collapsible button">
@@ -33,7 +32,14 @@
                         Prerequisites
                     </p>
                     <p>{% if table[2].prerequisites %}{{ table[2].prerequisites }}{% else %}None{% endif %}</p>
-                </div>
+                    <p class="uppercase-title">
+                        Instructors
+                    </p>
+		    {% if table[2].instructors %}
+		    <p>{{ table[2].instructors|join(', ') }}</p>
+		    {% else %}
+    		    <p>None</p>
+		    {% endif %}
             </div>
             {% endfor %}
         </div>
