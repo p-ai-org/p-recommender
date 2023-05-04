@@ -27,6 +27,7 @@ def getvalue():
 		lowlvl = 'lowlvl' in request.form
 		dept_filter = 'dept_filter' in request.form
 		df = recommend([coursename], blacklist_lowerlevel=lowlvl, blacklist_dept=dept_filter)
+
 		return render_template('result.html', tables = df, course = coursename)
 	except Exception as e:
 		error = "Invalid Course ID. Please Try Again"
