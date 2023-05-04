@@ -16,11 +16,81 @@
 
             {% for table in tables %}
             <div class="course-rec">
-                <button type="button" class="collapsible button">
-                    <p class="uppercase-title">
-                        {{ table[0] }}
-                    </p>
-                    {{ table[2].title }}
+                <button type="button" id = "parent" class="collapsible button">
+
+                {% if "-HM" in table[0]  %}
+                <div class = "button_hmc"> 
+                    <p class="uppercase-title"> {{ table[0] }} </p>
+                </div>
+
+                {% elif "-CM" in table[0] %}
+                <div class = "button_cmc"> 
+                    <p class="uppercase-title"> {{ table[0] }} </p> 
+                </div>
+
+                {% elif "-PO" in table[0] %}
+                <div class = "button_po"> 
+                    <p class="uppercase-title"> {{ table[0] }} </p>
+                </div>
+
+                {% elif "-SC" in  table[0] %}
+                <div class = "button_sc"> 
+                    <p class="uppercase-title"> {{ table[0] }} </p>
+                </div>
+                
+                {% elif "-PZ" in table[0] %}
+                <div class = "button_pz"> 
+                <p  class="uppercase-title"> {{ table[0]  }} </p>
+            </div>
+             
+        
+
+                {% else %}
+                <div class = "button_else"> 
+                <p  class="uppercase-title"> {{ table[0] }} </p>
+
+                <!-- <script>
+                    var h1Color = $('.button_else').css('background-color');
+                    $('button').css('background-color', h1Color);
+               </script> -->
+                
+                </div>
+
+                {% endif %}
+
+               
+                <p> {{ table[2].title }} </p>
+
+                <script>
+                    const parent = document.getElementById('parent');
+                    const children = parent.children;
+    
+
+
+                    // const classes = parent.classList;
+                    //     if (classes.length > 1) {
+                    //         const lastClass = classes.item(classes.length - 1);
+                    //         classes.remove(lastClass);
+                    //     }
+
+                    for (let i = 0; i < children.length; i++) {
+                        const child = children[i];
+                    
+                        if (child.classList.contains('button_hmc')) {
+                            parent.classList.add('button_hmc');
+                        } else if (child.classList.contains('button_cmc')) {
+                            parent.classList.add('button_cmc');    
+                        }  else if (child.classList.contains('button_po')) {
+                                parent.classList.add('button_po');    
+                        }  else if (child.classList.contains('button_sc')) {
+                                parent.classList.add('button_sc');    
+                        }  else if (child.classList.contains('button_pz')) {
+                                parent.classList.add('button_pz');    
+                        } 
+                    }
+    
+                   </script>
+              
                     <p style="font-size: 12px; opacity: 0.6; margin-top: 4px;">similarity: {{ table[1] }}</p>
                     <p style="opacity: 0.5; margin-top: 4px; line-height: 10px" class="arrow"><i class="fa-solid fa-caret-down"></i></p>
                 </button>
