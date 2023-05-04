@@ -14,12 +14,42 @@
         <div class="results">
             <h3>Recs for {{ course }}</h3>
             {% for table in tables %}
+
+            {% set buttonClass = "" %}
+
+            {% if "-HM" in table[0]  %}
+            {% set buttonClass = "button_hmc" %}
+          
+            {% elif "-CM" in table[0] %}
+            {% set buttonClass = "button_cmc" %}
+
+            {% elif "-PO" in table[0] %}
+            {% set buttonClass = "button_po" %}
+
+            {% elif "-SC" in table[0] %}
+            {% set buttonClass = "button_sc" %}
+
+            {% elif "-PZ" in table[0] %}
+            {% set buttonClass = "button_pz" %}
+
+            {% else %}
+            {% set buttonClass = "button_else" %}
+            
+            {% endif %}
+
             <div class="course-rec">
-                <button type="button" class="collapsible button">
-                    <p class="uppercase-title">
-                        {{ table[0] }}
-                    </p>
-                    {{ table[2].title }}
+                <button type="button" id = "parent" class="collapsible button {{ buttonClass }}">
+
+                    
+                    <div class = "{{ buttonClass }}"> 
+                        <p class="uppercase-title"> {{ table[0] }} </p>
+                    </div>
+
+                  
+                
+                    <p> {{ table[2].title }} </p>
+
+              
                     <p style="font-size: 12px; opacity: 0.6; margin-top: 4px;">similarity: {{ table[1] }}</p>
                     <p style="opacity: 0.5; margin-top: 4px; line-height: 10px" class="arrow"><i class="fa-solid fa-caret-down"></i></p>
                 </button>
@@ -62,7 +92,8 @@
         </div>
     </div>
     <div class="right-col">
-        <p>Visualization of courses coming soon (real WIP screenshot)</p>
+      	<!-- <p>Visualization of courses coming soon (real WIP screenshot)</p> -->
+		<p> Favorites</p>
     </div>
 </div>
 

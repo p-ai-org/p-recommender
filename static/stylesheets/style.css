@@ -31,7 +31,7 @@ h1 {
 .right-col {
 	width: 100%;
 	height: 100vh;
-	background-image: url("/static/pointcloud.jpg");
+	/* background-image: url("/static/pointcloud.jpg"); */
 	background-position: center center;
 	background-size: cover;
 	display: flex;
@@ -55,7 +55,7 @@ h1 {
 	}
 
 	.left-col {
-		width: 300px;
+		width: 70%;
 		height: 100%;
 		border-right: 1px solid black;
 		flex-grow: 0;
@@ -129,14 +129,39 @@ input[type="submit"]:hover {
 .button {
 	width: 100%;
 	display: block;
-  background-color: red;
 	opacity: 0.75;
+	background-color: red;
   border: none;
   color: white;
   padding: 16px 8px;
   text-align: center;
   font-size: 16px;
 	font-family: "IBM Plex Sans", sans-serif;
+}
+
+
+.button_cmc {
+	background-color: rgb(191, 60, 48);
+}
+
+.button_hmc {
+	background-color: rgb(196, 156, 53);
+}
+
+.button_po {
+	background-color: rgb(44, 97, 197);
+}
+
+.button_pz {
+	background-color: rgb(219, 145, 51);
+}
+
+.button_sc {
+	background-color: rgb(141, 157, 99);
+}
+
+.button_else {
+	background-color: rgb(82, 82, 82);
 }
 
 .button:hover {
