@@ -41,43 +41,12 @@
             <div class="course-rec">
                 <button type="button" id = "parent" class="collapsible button {{ buttonClass }}">
 
-                    {% if "-HM" in table[0]  %}
+                    
                     <div class = "{{ buttonClass }}"> 
                         <p class="uppercase-title"> {{ table[0] }} </p>
                     </div>
 
-                    {% elif "-CM" in table[0] %}
-                    <div class = "button_cmc"> 
-                        <p class="uppercase-title"> {{ table[0] }} </p> 
-                    </div>
-
-                    {% elif "-PO" in table[0] %}
-                    <div class = "button_po"> 
-                        <p class="uppercase-title"> {{ table[0] }} </p>
-                    </div>
-
-                    {% elif "-SC" in  table[0] %}
-                    <div class = "button_sc"> 
-                        <p class="uppercase-title"> {{ table[0] }} </p>
-                    </div>
-                    
-                    {% elif "-PZ" in table[0] %}
-                    <div class = "button_pz"> 
-                    <p  class="uppercase-title"> {{ table[0]  }} </p>
-                </div>
-                
-            
-
-                    {% else %}
-                    <div class = "button_else"> 
-                    <p  class="uppercase-title"> {{ table[0] }} </p>
-
-    
-                    
-                    </div>
-
-                    {% endif %}
-
+                  
                 
                     <p> {{ table[2].title }} </p>
 
