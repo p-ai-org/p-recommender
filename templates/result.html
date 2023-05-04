@@ -13,7 +13,6 @@
 
         <div class="results">
             <h3>Recs for {{ course }}</h3>
-
             {% for table in tables %}
             <div class="course-rec">
                 <button type="button" class="collapsible button">
@@ -33,7 +32,31 @@
                         Prerequisites
                     </p>
                     <p>{% if table[2].prerequisites %}{{ table[2].prerequisites }}{% else %}None{% endif %}</p>
-                </div>
+                    <p class="uppercase-title">
+                        Instructors
+                    </p>
+		    {% if table[2].instructor %}
+		    <p>{{ table[2].instructor }}</p>
+		    {% else %}
+    		    <p>None</p>
+		    {% endif %}
+                    <p class="uppercase-title">
+                        Location
+                    </p>
+                    {% if table[2].location %}
+                    <p>{{ table[2].location }}</p>
+                    {% else %}
+                    <p>None</p>
+                    {% endif %}
+                    <p class="uppercase-title">
+                        GE(s) Satisfied
+                    </p>
+                    {% if table[2].ges %}
+                    <p>{{ table[2].ges }}</p>
+                    {% else %}
+                    <p>None</p>
+                    {% endif %}
+
             </div>
             {% endfor %}
         </div>
