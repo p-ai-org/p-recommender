@@ -47,8 +47,11 @@ with open('courses.csv', 'w', encoding='UTF8', newline='') as f:
 				Description = course['Description']
 				Faculty = []
 				reqs = Description.find("Prerequisite:")
+				reqs1 = Description.find("Prerequisites:")
 				if reqs != -1:
-					Prerequisites = Description[reqs + len("Prerequisites:"):]
+					Prerequisites = Description[reqs + len("Prerequisite:"):]
+				elif reqs1 != -1:
+					Prerequisites = Description[reqs1 + len("Prerequisites:"):]
 				else:
 					Prerequisites = 'None'
 				if len(course['Instructors']) == 1:
@@ -79,3 +82,12 @@ with open('courses.csv', 'w', encoding='UTF8', newline='') as f:
 			writer.writerow(data)
 
 df = pd.read_csv('courses.csv')
+duplicates = df.loc[df.duplicated(subset=['CourseCode'], keep=False), :]
+print("duplicates=", duplicates)
+for idx, row in duplicates.groupby('CourseCode')['Course Area']:
+    concat = ', '.join(row.values)
+    df.loc[df['CourseCode'] == idx, 'Course Area(s)'] = concat
+    df.drop_duplicates(subset=['CourseCode'], keep='first', inplace=True)
+
+df.drop('Course Area', axis=1, inplace=True)
+df.to_csv('courses.csv', index=False)
