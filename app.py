@@ -7,9 +7,11 @@ import pickle
 from scipy import spatial
 import os 
 import json
-from recommend_GloVe.recommend_GloVe_average import recommend
 from functools import wraps
 import time
+from recommend_tfidf.recommend_tfidf import recommend
+# from recommend_GloVe.recommend_GloVe_average import recommend
+
 
 with open("./static/courses.json", "r") as courses_file:
     courses = json.load(courses_file)
@@ -30,19 +32,25 @@ def timer(request):
 
 @app.route('/')
 def index():
-    return render_template('index.html') 
+    return render_template('index.html')
 
 @app.route('/rec',methods=['POST'])
 @timer
 def getvalue():
 	try:
-		coursename = request.form['search'].split(" ")[0]
-		lowlvl = 'lowlvl' in request.form
-		dept_filter = 'dept_filter' in request.form
-		df = recommend([coursename], blacklist_lowerlevel=lowlvl, blacklist_dept=dept_filter)
-		return render_template('result.html', tables = df, course = coursename)
+		user_input = request.form['search']
+		upperlvl = 'upperlvl' in request.form
+		cmc = 'cmc' in request.form
+		pomona = 'pomona' in request.form
+		hmc = 'hmc' in request.form
+		scripps = 'scripps' in request.form	
+		pitzer = 'pitzer' in request.form
+		other = 'other' in request.form
+		df = recommend(user_input, upperlvl=upperlvl, cmc=cmc, pomona=pomona, hmc=hmc, scripps=scripps, pitzer=pitzer, other=other)
+		return render_template('result.html', tables = df, course = user_input)
 	except Exception as e:
-		error = "Invalid Course ID. Please Try Again"
+		print(e)
+		error = "Invalid Description. Please Try Again"
 		return render_template('index.html', error = error) 
 
 @app.route('/search', methods=['POST'])

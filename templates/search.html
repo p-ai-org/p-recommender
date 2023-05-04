@@ -12,9 +12,19 @@
     <input type="text" name="search" id="searchBox" placeholder="Input course name or ID">
     <!-- submit = button!; value = what shows up on the button-->
     <div class="checkboxes">
-        <input type="checkbox" name="lowlvl" value="1"/> Remove lower level courses
+        <input type="checkbox" name="upperlvl" value="1"/> Remove lower level courses
         <br>
-        <input type="checkbox" name="dept_filter" value="1"/> Remove same department courses
+        <input type="checkbox" checked name="cmc" value="1"/> Include CMC courses
+        <br>
+        <input type="checkbox" checked name="pomona" value="1"/> Include Pomona courses
+        <br>
+        <input type="checkbox" checked name="hmc" value="1"/> Include Harvey Mudd courses
+        <br>
+        <input type="checkbox" checked name="pitzer" value="1"/> Include Pitzer courses
+        <br>
+        <input type="checkbox" checked name="scripps" value="1"/> Include Scripps courses
+        <br>
+        <input type="checkbox" checked name="other" value="1"/> Include Other courses
     </div>
     <input type="submit" value="Get recs">
 </form>
