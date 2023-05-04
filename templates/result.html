@@ -35,11 +35,28 @@
                     <p class="uppercase-title">
                         Instructors
                     </p>
-		    {% if table[2].instructors %}
-		    <p>{{ table[2].instructors|join(', ') }}</p>
+		    {% if table[2].instructor %}
+		    <p>{{ table[2].instructor }}</p>
 		    {% else %}
     		    <p>None</p>
 		    {% endif %}
+                    <p class="uppercase-title">
+                        Location
+                    </p>
+                    {% if table[2].location %}
+                    <p>{{ table[2].location }}</p>
+                    {% else %}
+                    <p>None</p>
+                    {% endif %}
+                    <p class="uppercase-title">
+                        GE(s) Satisfied
+                    </p>
+                    {% if table[2].ges %}
+                    <p>{{ table[2].ges }}</p>
+                    {% else %}
+                    <p>None</p>
+                    {% endif %}
+
             </div>
             {% endfor %}
         </div>
